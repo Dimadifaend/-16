@@ -153,180 +153,213 @@
         }
 # 📋 Задания к лаб. 16
 ## 📁 Структура проекта
-      #include <stdio.h>
-      #include <stdlib.h>
-      #include <math.h>
-      #include <locale.h>
-      
-      #define MAX_SIZE 100
-      
-      void lab16();
-      void poiskOtr();
-      void task14();
-      void task11();
-      void delete_element(double arr[], int* size, int index);
-      double* full_elements(double* ptr_array, int n);
-      
-      int main() {
-          setlocale(LC_ALL, "RUS");
-          printf("Объединённая программа:\n");
-          lab16();
-          poiskOtr();
-          task14();
-          task11();
-          return 0;
-      }
-      
-      void delete_element(double arr[], int* size, int index) {
-          if (index < 0 || index >= *size) return;
-          for (int i = index; i < *size - 1; i++) {
-              arr[i] = arr[i + 1];
-          }
-          (*size)--;
-      }
-      
-      void lab16() {
-          int n;
-          double arr[MAX_SIZE];
-          printf("\n=====================================\n");
-          printf("Лабораторная 16:\n");
-          printf("Введите размер массива (до %d): ", MAX_SIZE);
-          scanf("%d", &n);
-          printf("Заполнение массива (функция full_elements):\n");
-          full_elements(arr, n);
-          int delIndex;
-          printf("Введите индекс элемента для удаления (от 0 до %d): ", n - 1);
-          scanf("%d", &delIndex);
-          delete_element(arr, &n, delIndex);
-      
-          printf("Массив после удаления:\n");
-          for (int i = 0; i < n; i++) {
-              printf("%.2lf ", arr[i]);
-          }
-          printf("\n=====================================\n");
-      }
-      
-      double* full_elements(double* ptr_array, int n) {
-          printf("Введите %d чисел:\n", n);
-          for (int i = 0; i < n; i++) {
-              printf("Элемент %d: ", i + 1);
-              scanf("%lf", &ptr_array[i]);
-          }
-          return ptr_array;
-      }
-      
-      void poiskOtr() {
-          int n;
-          double arr[MAX_SIZE];
-          int otr = -1;
-          double sum = 0;
-          printf("\n=====================================\n");
-          printf("Поиск отрицательного:\n");
-          printf("Введите размер массива (не более %d): ", MAX_SIZE);
-          scanf("%d", &n);
-          full_elements(arr, n);
-          for (int i = 0; i < n; i++) {
-              if (arr[i] < 0 && otr == -1)
-                  otr = i;
-          }
-          if (otr == -1) {
-              printf("Отрицательных элементов нет\n");
-          }
-          else {
-              for (int i = otr + 1; i < n; i++) {
-                  sum += fabs(arr[i]);
-              }
-              printf("Сумма модулей элементов после первого отрицательного: %.2lf\n", sum);
-          }
-          printf("=====================================\n");
-      }
-      
-      void task14() {
-          int n, m, sizeC;
-          printf("\n=====================================\n");
-          printf("Задание 14:\n");
-          printf("Введите размеры массивов a, b, C:\n");
-          printf("a: ");
-          scanf("%d", &n);
-          printf("b: ");
-          scanf("%d", &m);
-          printf("C: ");
-          scanf("%d", &sizeC);
-          double* a = (double*)malloc(n * sizeof(double));
-          double* b = (double*)malloc(m * sizeof(double));
-          double* C = (double*)malloc(sizeC * sizeof(double));
-          printf("Введите элементы массива a:\n");
-          for (int i = 0; i < n; i++) {
-              printf("a[%d]: ", i);
-              scanf("%lf", &a[i]);
-          }
-          printf("Введите элементы массива b:\n");
-          for (int i = 0; i < m; i++) {
-              printf("b[%d]: ", i);
-              scanf("%lf", &b[i]);
-          }
-          printf("Введите элементы массива C:\n");
-          for (int i = 0; i < sizeC; i++) {
-              printf("C[%d]: ", i);
-              scanf("%lf", &C[i]);
-          }
-          int min_size = n < m ? n : m;
-          min_size = min_size < sizeC ? min_size : sizeC;
-      
-          double* result = (double*)malloc(min_size * sizeof(double));
-          for (int i = 0; i < min_size; i++) {
-              result[i] = (a[i] + b[i] + C[i]) / 3.0;
-          }
-          printf("Результат (среднее арифметическое):\n");
-          for (int i = 0; i < min_size; i++) {
-              printf("result[%d] = %.2f\n", i, result[i]);
-          }
-          free(a);
-          free(b);
-          free(C);
-          free(result);
-          printf("=====================================\n");
-      }
-      
-      void task11() {
-          int n, i, otr = -1;
-          double sum = 0;
-          double arr[MAX_SIZE];
-      
-          printf("\n=====================================\n");
-          printf("Работа 11:\n");
-          printf("Введите размер массива (не более %d): ", MAX_SIZE);
-          scanf("%d", &n);
-      
-          full_elements(arr, n);
-      
-          for (i = 0; i < n; i++) {
-              if (arr[i] < 0 && otr == -1) {
-                  otr = i;
-              }
-          }
-      
-          if (otr == -1) {
-              printf("Отрицательных элементов нет\n");
-          }
-          else {
-              for (i = otr + 1; i < n; i++) {
-                  sum += fabs(arr[i]);
-              }
-              printf("Сумма модулей элементов после первого отрицательного: %.2lf\n", sum);
-          }
-          printf("=====================================\n");
-      }
-
+                  #include <stdio.h>
+                  #include <stdlib.h>
+                  #include <math.h>
+                  #include <locale.h>
+                  
+                  #define MAX_SIZE 100
+                  
+                  double* full_elements(double* ptr_array, int n);
+                  void delete_element(double arr[], int* size, int index);
+                  double* process_lab16(double* arr, int* n);
+                  double process_poiskOtr(double* arr, int n, int* index_otr);
+                  double* process_task14(double* a, int n, double* b, int m, double* C, int sizeC, int* result_size);
+                  double process_task11(double* arr, int n, int* index_otr);
+                  
+                  int main() {
+                      setlocale(LC_ALL, "RUS");
+                      printf("Объединённая программа:\n");
+                      
+                      double arr[MAX_SIZE];
+                      int size;
+                      int otr_index;
+                      double sum_result;
+                      
+                      printf("\n=== Лабораторная 16 ===\n");
+                      printf("Введите размер массива (до %d): ", MAX_SIZE);
+                      scanf("%d", &size);
+                      
+                      full_elements(arr, size);
+                      
+                      int delIndex;
+                      printf("Введите индекс для удаления: ");
+                      scanf("%d", &delIndex);
+                      delete_element(arr, &size, delIndex);
+                      
+                      printf("Массив после удаления:\n");
+                      for (int i = 0; i < size; i++) {
+                          printf("%.2lf ", arr[i]);
+                      }
+                      printf("\n");
+                      
+                      printf("\n=== Поиск отрицательного ===\n");
+                      printf("Введите размер массива: ");
+                      scanf("%d", &size);
+                      full_elements(arr, size);
+                      
+                      sum_result = process_poiskOtr(arr, size, &otr_index);
+                      if (otr_index == -1) {
+                          printf("Отрицательных элементов нет\n");
+                      } else {
+                          printf("Сумма модулей после первого отрицательного: %.2lf\n", sum_result);
+                      }
+                      
+                      printf("\n=== Задание 14 ===\n");
+                      int n, m, sizeC;
+                      printf("Введите размеры массивов a, b, C:\n");
+                      printf("a: "); scanf("%d", &n);
+                      printf("b: "); scanf("%d", &m);
+                      printf("C: "); scanf("%d", &sizeC);
+                      
+                      double* a = (double*)malloc(n * sizeof(double));
+                      double* b = (double*)malloc(m * sizeof(double));
+                      double* C = (double*)malloc(sizeC * sizeof(double));
+                      
+                      printf("Введите массив a:\n");
+                      full_elements(a, n);
+                      printf("Введите массив b:\n");
+                      full_elements(b, m);
+                      printf("Введите массив C:\n");
+                      full_elements(C, sizeC);
+                      
+                      int result_size;
+                      double* result = process_task14(a, n, b, m, C, sizeC, &result_size);
+                      
+                      printf("Средние значения:\n");
+                      for (int i = 0; i < result_size; i++) {
+                          printf("result[%d] = %.2f\n", i, result[i]);
+                      }
+                      free(a); free(b); free(C); free(result);
+                      
+                      printf("\n=== Работа 11 ===\n");
+                      printf("Введите размер массива: ");
+                      scanf("%d", &size);
+                      full_elements(arr, size);
+                      
+                      sum_result = process_task11(arr, size, &otr_index);
+                      if (otr_index == -1) {
+                          printf("Отрицательных элементов нет\n");
+                      } else {
+                          printf("Сумма модулей после первого отрицательного: %.2lf\n", sum_result);
+                      }
+                      
+                      return 0;
+                  }
+                  
+                  double* full_elements(double* ptr_array, int n) {
+                      printf("Введите %d чисел:\n", n);
+                      for (int i = 0; i < n; i++) {
+                          printf("Элемент %d: ", i + 1);
+                          scanf("%lf", &ptr_array[i]);
+                      }
+                      return ptr_array;
+                  }
+                  
+                  void delete_element(double arr[], int* size, int index) {
+                      if (index < 0 || index >= *size) return;
+                      for (int i = index; i < *size - 1; i++) {
+                          arr[i] = arr[i + 1];
+                      }
+                      (*size)--;
+                  }
+                  
+                  double process_poiskOtr(double* arr, int n, int* index_otr) {
+                      *index_otr = -1;
+                      double sum = 0;
+                      
+                      for (int i = 0; i < n; i++) {
+                          if (arr[i] < 0 && *index_otr == -1) {
+                              *index_otr = i;
+                          }
+                      }
+                      
+                      if (*index_otr != -1) {
+                          for (int i = *index_otr + 1; i < n; i++) {
+                              sum += fabs(arr[i]);
+                          }
+                      }
+                      
+                      return sum;
+                  }
+                  
+                  double* process_task14(double* a, int n, double* b, int m, double* C, int sizeC, int* result_size) {
+                      *result_size = n < m ? n : m;
+                      *result_size = *result_size < sizeC ? *result_size : sizeC;
+                      
+                      double* result = (double*)malloc(*result_size * sizeof(double));
+                      for (int i = 0; i < *result_size; i++) {
+                          result[i] = (a[i] + b[i] + C[i]) / 3.0;
+                      }
+                      
+                      return result;
+                  }
+                  
+                  double process_task11(double* arr, int n, int* index_otr) {
+                      *index_otr = -1;
+                      double sum = 0;
+                      
+                      for (int i = 0; i < n; i++) {
+                          if (arr[i] < 0 && *index_otr == -1) {
+                              *index_otr = i;
+                          }
+                      }
+                      
+                      if (*index_otr != -1) {
+                          for (int i = *index_otr + 1; i < n; i++) {
+                              sum += fabs(arr[i]);
+                          }
+                      }
+                      
+                      return sum;
+                  }
 
 ## 🔧 Реализованные функции
-
-      void lab16();
-      void poiskOtr();
-      void task14();
-      void task11();
-      void delete_element(double arr[], int* size, int index);
-      double* full_elements(double* ptr_array, int n);
+### 1 double* full_elements(double* ptr_array, int n)
+#### Назначение: 
+         Заполнение массива значениями с клавиатуры
+#### Параметры:
+         ptr_array - указатель на массив
+         n - размер массива
+#### Возвращает: 
+         указатель на заполненный массив
       
+### 2 void delete_element(double arr[], int* size, int index)
+#### Назначение: 
+         Удаление элемента из массива по индексу
+#### Параметры:
+        arr - указатель на массив
+        size - указатель на размер массива
+        index - индекс элемента для удаления
+#### Возвращает: 
+        ничего
 
+### 3 double process_poiskOtr(double* arr, int n, int* index_otr) 
+#### Назначение: 
+        Поиск первого отрицательного элемента и сумма модулей после него
+#### Параметры:
+ 
+         arr - указатель на массив
+          n - размер массива
+         index_otr - указатель для сохранения индекса отрицательного элемента
+    
+#### Возвращает: 
+         сумму модулей элементов после первого отрицательного
+
+### 4 double* process_task14(double* a, int n, double* b, int m, double* C, int sizeC, int* result_size)
+#### Назначение: 
+        Вычисление среднего арифметического трёх массивов
+#### Параметры:
+             a - указатель на первый массив
+             n - размер первого массива
+             b - указатель на второй массив
+             m - размер второго массива
+             C - указатель на третий массив
+             sizeC - размер третьего массива
+             result_size - указатель для сохранения размера результата
+#### Возвращает: 
+         указатель на массив со средними значениями
+
+
+      
      
