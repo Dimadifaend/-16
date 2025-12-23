@@ -15,12 +15,17 @@
 5. Поиск порядкового номера минимального значения элементов, кратных k.
 # 📋 Задания к лаб. 16
 ## 📁 Структура проекта
-### -| FileName.c
-### -| Project5.sln
-### -| Project5.vcxproj
-### -| Project5.vcxproj.filters
-### -| Project5.vcxproj.user
-### -| README.md
+ -| FileName.c
+ 
+ -| Project5.sln
+ 
+ -| Project5.vcxproj
+ 
+ -| Project5.vcxproj.filters
+ 
+ -| Project5.vcxproj.user
+ 
+ -| README.md
 
 ## 🔧 Реализованные функции
 ### 1 double* full_elements(double* ptr_array, int n)
