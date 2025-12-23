@@ -1,318 +1,26 @@
 # Работа с массивами в С
 
 ## 📋задание к лаб. 11
+
 1. Заполнение массива с консоли
-
-         float A[10];
-         printf("=== Заполнение массива из 10 элементов ===\n");
-         for(int i = 0; i < 10; i++) {
-         printf("A[%d] = ", i);
-         scanf("%f", &A[i]);
-        printf("\n=== Преобразование массива: замена знака каждого элемента ===\n");
-        for(int i = 0; i < 10; i++) {
 2. Преобразование массива
-
-        A[i] = -A[i];  
-        printf("A[%d]: %.2f -> %.2f\n", i, original[i], A[i]);
-        }
 3. Печать массива
-
-          printf("+----------+---------------------+\n");
-          printf("|  Индекс  |     Значение        |\n");
-          printf("+----------+---------------------+\n");
-          
-          for(int i = 0; i < 10; i++) {
-              printf("|   %2d     | %19.2f |\n", i, A[i]);
-          }
-          
-          printf("+----------+---------------------+\n");
-
-4. Дз  
-      
-    Условие:
-    
-    Сумма модулей элементов массива, расположенных после первого отрицательного элемента.
-      
-    Решение:
-
-        #include <math.h>
-        #include <stdio.h>
-        #include <locale.h>
-        
-        #define MAX_SIZE 100  
-        
-        int main()
-        {
-            setlocale(LC_ALL, "RUS");
-            int n, i, otr = -1;
-            double sum = 0;
-            double arr[MAX_SIZE];
-        
-            printf("Введите размер массива (не более %d): ", MAX_SIZE);
-            scanf("%d", &n);
-        
-        
-            
-        
-            printf("Введите элементы массива:\n");
-            for (i = 0; i < n; i++)
-            {
-                scanf("%lf", &arr[i]);
-                if (arr[i] < 0 && otr == -1)
-                {
-                    otr = i;
-                }
-            }
-        
-            if (otr == -1)
-            {
-                printf("Отрицательных элементов нет");
-                return 0;
-            }
-        
-            for (i = otr + 1; i < n; i++)
-            {
-                sum = sum + fabs(arr[i]);
-            }
-            printf("Сумма модулей элементов после первого отрицательного: %lf", sum);
-        
-            return 0;
-        }
+4. найти сумму молудей элментов массива, расположенных после первого отрицательного элмента
 
 ## 📋задание к лаб. 14
-1.Заполнение массива значениями из функции Func(x)
-
-    double formula(double x) {
-        return x * x; 
-    }
-    
-    void zapolnenie(double *a, int n) {
-        for(int i = 0; i < n; i++) {
-            a[i] = formula(i);
-        }
-    }
-
-2.Печать массива 
-  
-      void print_array(double *a, int n) {
-      printf("Содержимое массива:\n");
-      for(int i = 0; i < n; i++) {
-          printf("a[%d] = %.2f\n", i, a[i]);
-      }
-      }
-
-3.Вычисление суммы элементов массива
-
-    double sum_elements(double *arr, int start, int finish) {
-    double s = 0;
-    for(int i = start; i <= finish; i++) {
-        s += arr[i];
-    }
-    return s;
-   }
-
-4.Поиск в массиве значения равного a
-
-    int poick(double *mas, int kol, double isk) {
-      for(int i = 0; i < kol; i++) {
-          if(mas[i] == isk) {
-              return i;
-          }
-      }
-      return -1;
-      }
-5. ДЗ
-
-        Условие: 
-        Поиск порядкового номера минимального значения элементов, кратных k.
-        Решение:
-        #include <stdio.h>
-        #include <limits.h>
-        #include <locale.h>
-        
-        int findMin(int* a, int n, int K) {
-            int min = INT_MAX;
-            for (int i = K - 1; i < n; i += K) {
-                if (a[i] < min) {
-                    min = a[i];
-                }
-            }
-            return min;
-        }
-        
-        int main() {
-            setlocale(LC_ALL, "RUS");
-            int arr[] = { 5, 2, 8, 1, 9, 3, 7, 4 };
-            int size = sizeof(arr) / sizeof(arr[0]);
-            int K = 3;
-        
-            int result = findMin(arr, size, K);
-            printf("Мин. среди элементов с номерами, кратными %d: %d\n", K, result);
-        
-            return 0;
-        }
+1. Заполнение массива значениями из функции Func(x)
+2. Печать массива 
+3. Вычисление суммы элементов массива
+4. Поиск в массиве значения k
+5. Поиск порядкового номера минимального значения элементов, кратных k.
 # 📋 Задания к лаб. 16
 ## 📁 Структура проекта
-                  #include <stdio.h>
-                  #include <stdlib.h>
-                  #include <math.h>
-                  #include <locale.h>
-                  
-                  #define MAX_SIZE 100
-                  
-                  double* full_elements(double* ptr_array, int n);
-                  void delete_element(double arr[], int* size, int index);
-                  double* process_lab16(double* arr, int* n);
-                  double process_poiskOtr(double* arr, int n, int* index_otr);
-                  double* process_task14(double* a, int n, double* b, int m, double* C, int sizeC, int* result_size);
-                  double process_task11(double* arr, int n, int* index_otr);
-                  
-                  int main() {
-                      setlocale(LC_ALL, "RUS");
-                      printf("Объединённая программа:\n");
-                      
-                      double arr[MAX_SIZE];
-                      int size;
-                      int otr_index;
-                      double sum_result;
-                      
-                      printf("\n=== Лабораторная 16 ===\n");
-                      printf("Введите размер массива (до %d): ", MAX_SIZE);
-                      scanf("%d", &size);
-                      
-                      full_elements(arr, size);
-                      
-                      int delIndex;
-                      printf("Введите индекс для удаления: ");
-                      scanf("%d", &delIndex);
-                      delete_element(arr, &size, delIndex);
-                      
-                      printf("Массив после удаления:\n");
-                      for (int i = 0; i < size; i++) {
-                          printf("%.2lf ", arr[i]);
-                      }
-                      printf("\n");
-                      
-                      printf("\n=== Поиск отрицательного ===\n");
-                      printf("Введите размер массива: ");
-                      scanf("%d", &size);
-                      full_elements(arr, size);
-                      
-                      sum_result = process_poiskOtr(arr, size, &otr_index);
-                      if (otr_index == -1) {
-                          printf("Отрицательных элементов нет\n");
-                      } else {
-                          printf("Сумма модулей после первого отрицательного: %.2lf\n", sum_result);
-                      }
-                      
-                      printf("\n=== Задание 14 ===\n");
-                      int n, m, sizeC;
-                      printf("Введите размеры массивов a, b, C:\n");
-                      printf("a: "); scanf("%d", &n);
-                      printf("b: "); scanf("%d", &m);
-                      printf("C: "); scanf("%d", &sizeC);
-                      
-                      double* a = (double*)malloc(n * sizeof(double));
-                      double* b = (double*)malloc(m * sizeof(double));
-                      double* C = (double*)malloc(sizeC * sizeof(double));
-                      
-                      printf("Введите массив a:\n");
-                      full_elements(a, n);
-                      printf("Введите массив b:\n");
-                      full_elements(b, m);
-                      printf("Введите массив C:\n");
-                      full_elements(C, sizeC);
-                      
-                      int result_size;
-                      double* result = process_task14(a, n, b, m, C, sizeC, &result_size);
-                      
-                      printf("Средние значения:\n");
-                      for (int i = 0; i < result_size; i++) {
-                          printf("result[%d] = %.2f\n", i, result[i]);
-                      }
-                      free(a); free(b); free(C); free(result);
-                      
-                      printf("\n=== Работа 11 ===\n");
-                      printf("Введите размер массива: ");
-                      scanf("%d", &size);
-                      full_elements(arr, size);
-                      
-                      sum_result = process_task11(arr, size, &otr_index);
-                      if (otr_index == -1) {
-                          printf("Отрицательных элементов нет\n");
-                      } else {
-                          printf("Сумма модулей после первого отрицательного: %.2lf\n", sum_result);
-                      }
-                      
-                      return 0;
-                  }
-                  
-                  double* full_elements(double* ptr_array, int n) {
-                      printf("Введите %d чисел:\n", n);
-                      for (int i = 0; i < n; i++) {
-                          printf("Элемент %d: ", i + 1);
-                          scanf("%lf", &ptr_array[i]);
-                      }
-                      return ptr_array;
-                  }
-                  
-                  void delete_element(double arr[], int* size, int index) {
-                      if (index < 0 || index >= *size) return;
-                      for (int i = index; i < *size - 1; i++) {
-                          arr[i] = arr[i + 1];
-                      }
-                      (*size)--;
-                  }
-                  
-                  double process_poiskOtr(double* arr, int n, int* index_otr) {
-                      *index_otr = -1;
-                      double sum = 0;
-                      
-                      for (int i = 0; i < n; i++) {
-                          if (arr[i] < 0 && *index_otr == -1) {
-                              *index_otr = i;
-                          }
-                      }
-                      
-                      if (*index_otr != -1) {
-                          for (int i = *index_otr + 1; i < n; i++) {
-                              sum += fabs(arr[i]);
-                          }
-                      }
-                      
-                      return sum;
-                  }
-                  
-                  double* process_task14(double* a, int n, double* b, int m, double* C, int sizeC, int* result_size) {
-                      *result_size = n < m ? n : m;
-                      *result_size = *result_size < sizeC ? *result_size : sizeC;
-                      
-                      double* result = (double*)malloc(*result_size * sizeof(double));
-                      for (int i = 0; i < *result_size; i++) {
-                          result[i] = (a[i] + b[i] + C[i]) / 3.0;
-                      }
-                      
-                      return result;
-                  }
-                  
-                  double process_task11(double* arr, int n, int* index_otr) {
-                      *index_otr = -1;
-                      double sum = 0;
-                      
-                      for (int i = 0; i < n; i++) {
-                          if (arr[i] < 0 && *index_otr == -1) {
-                              *index_otr = i;
-                          }
-                      }
-                      
-                      if (*index_otr != -1) {
-                          for (int i = *index_otr + 1; i < n; i++) {
-                              sum += fabs(arr[i]);
-                          }
-                      }
-                      
-                      return sum;
-                  }
+### -| FileName.c
+### -| Project5.sln
+### -| Project5.vcxproj
+### -| Project5.vcxproj.filters
+### -| Project5.vcxproj.user
+### -| README.md
 
 ## 🔧 Реализованные функции
 ### 1 double* full_elements(double* ptr_array, int n)
@@ -359,6 +67,14 @@
              result_size - указатель для сохранения размера результата
 #### Возвращает: 
          указатель на массив со средними значениями
+### 5 double* poln_elements(double* srt_mess, int k)
+#### Назначение: 
+    Заполнение массива значениями
+#### Параметры:
+             srt_mess - указатель на массив
+             k - размер массива
+#### Возвращает: 
+         указатель на заполненый массив
 
 
       
