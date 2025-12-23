@@ -27,6 +27,8 @@
  
  -| README.md
 
+ -| File.h
+
 ## 🔧 Реализованные функции
 ### 1 double* full_elements(double* ptr_array, int n)
 #### Назначение: 
